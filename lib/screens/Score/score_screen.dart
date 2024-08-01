@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:quizapp/Controller/question_controller.dart';
 import 'package:quizapp/constants.dart';
-import 'package:quizapp/screens/Quiz/quiz_screen.dart';
 import 'package:quizapp/screens/Welcome/Welcome_screen.dart';
 
 class ScoreScreen extends StatelessWidget {
@@ -19,83 +18,84 @@ class ScoreScreen extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         SvgPicture.asset("assets/icons/bg.svg", fit: BoxFit.fill),
-        Column(
-          children: [
-            const Spacer(
-              flex: 3,
-            ),
-            Text(
-              "Your Score!",
-              style: Theme.of(context).textTheme.headline3!.copyWith(
-                  color: kSecondaryColor, fontWeight: FontWeight.bold),
-            ),
-            const Spacer(),
-            Text(
-              "${_qnController.numOfCorrectAns * 10}/${_qnController.questions.length * 10}",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline4!
-                  .copyWith(color: kSecondaryColor),
-            ),
-            const Spacer(),
-            Row(
+        SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+            child: Column(
               children: [
                 const Spacer(
-                  flex: 1,
+                  flex: 3,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    Get.to(const WelcomeScreen());
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kSecondaryColor,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                  ),
-                  child: Text(
-                    "Play Again",
-                    style: Theme.of(context).textTheme.button!.copyWith(
-                          color: kBlackColor,
-                          fontWeight: FontWeight.bold,
+                Text(
+                  "Your Score!",
+                  style: Theme.of(context).textTheme.headline3!.copyWith(
+                      color: kSecondaryColor, fontWeight: FontWeight.bold),
+                ),
+                const Spacer(),
+                Text(
+                  "${_qnController.numOfCorrectAns * 10}/${_qnController.questions.length * 10}",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4!
+                      .copyWith(color: kSecondaryColor),
+                ),
+                const Spacer(),
+                // Column for buttons
+                Column(
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.to(const WelcomeScreen());
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(kDefaultPadding * 0.75),
+                        decoration: const BoxDecoration(
+                            gradient: kPrimaryGradient,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(12))),
+                        child: Text(
+                          "Play Again",
+                          style: Theme.of(context).textTheme.button!.copyWith(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
-                  ),
+                      ),
+                    ),
+                    const SizedBox(
+                        height: kDefaultPadding), // Space between buttons
+                    InkWell(
+                      onTap: () {
+                        Get.to(const WelcomeScreen());
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(kDefaultPadding * 0.75),
+                        decoration: const BoxDecoration(
+                            gradient: kPrimaryGradient,
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(12))),
+                        child: Text(
+                          "Exit",
+                          style: Theme.of(context).textTheme.button!.copyWith(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const Spacer(
-                  flex: 1,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Get.to(const WelcomeScreen());
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kSecondaryColor,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                  ),
-                  child: Text(
-                    "Exit",
-                    style: Theme.of(context).textTheme.button!.copyWith(
-                          color: kBlackColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                ),
-                const Spacer(
-                  flex: 1,
+                  flex: 3,
                 ),
               ],
             ),
-            const Spacer(
-              flex: 3,
-            ),
-          ],
-        )
+          ),
+        ),
       ],
     ));
   }
