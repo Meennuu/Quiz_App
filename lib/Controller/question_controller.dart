@@ -47,7 +47,7 @@ class QuestionController extends GetxController
   @override
   void onInit() {
     _animationController =
-        AnimationController(duration: const Duration(seconds: 60), vsync: this);
+        AnimationController(duration: const Duration(seconds: 5), vsync: this);
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController)
       ..addListener(() {
         // update like setState
@@ -88,7 +88,7 @@ class QuestionController extends GetxController
     if (_questionNumber.value != _questions.length) {
       _isAnswered = false;
       _pageController.nextPage(
-          duration: const Duration(milliseconds: 100), curve: Curves.ease);
+          duration: const Duration(milliseconds: 250), curve: Curves.ease);
 
       // Reset the counter
       _animationController.reset();
