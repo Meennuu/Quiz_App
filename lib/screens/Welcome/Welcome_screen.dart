@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:quizapp/constants.dart';
+import 'package:quizapp/screens/Quiz/quiz_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -18,7 +20,7 @@ class WelcomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Spacer(
-                  flex: 2,
+                  flex: 3,
                 ),
                 Text(
                   "Let's Play Quiz,",
@@ -28,7 +30,9 @@ class WelcomeScreen extends StatelessWidget {
                       fontSize: 32),
                 ),
                 const Text("Enter your information below"),
-                const Spacer(),
+                const Spacer(
+                  flex: 1,
+                ),
                 const TextField(
                   decoration: InputDecoration(
                       filled: true,
@@ -37,9 +41,11 @@ class WelcomeScreen extends StatelessWidget {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(12)))),
                 ),
-                const Spacer(),
+                const Spacer(
+                  flex: 1,
+                ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () => Get.to(QuizScreen()),
                   child: Container(
                     width: double.infinity,
                     alignment: Alignment.center,
@@ -57,7 +63,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
                 const Spacer(
-                  flex: 2,
+                  flex: 3,
                 ),
               ],
             ),

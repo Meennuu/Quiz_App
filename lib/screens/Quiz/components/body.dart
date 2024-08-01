@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:quizapp/Controller/question_controller.dart';
 import 'package:quizapp/constants.dart';
-import 'package:quizapp/models/Questions.dart';
 import 'package:quizapp/screens/Quiz/components/progress_bar.dart';
 
 import 'question_card.dart';
@@ -15,6 +17,7 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    QuestionController questionController = Get.put(QuestionController());
     return Stack(
       children: [
         SvgPicture.asset("assets/icons/bg.svg", fit: BoxFit.fill),
@@ -30,32 +33,45 @@ class Body extends StatelessWidget {
                 height: kDefaultPadding,
               ),
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                child: Text.rich(TextSpan(
-                    text: "Question 1",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: kSecondaryColor),
-                    children: [
-                      TextSpan(
-                          text: "/10",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5!
-                              .copyWith(color: kSecondaryColor))
-                    ])),
-              ),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                  child: Obx(
+                    () => Text.rich(TextSpan(
+                        text:
+                            "Question ${questionController.questionNumber.value}",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4!
+                            .copyWith(color: kSecondaryColor),
+                        children: [
+                          TextSpan(
+                              text: "/${questionController.questions.length}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5!
+                                  .copyWith(color: kSecondaryColor))
+                        ])),
+                  )),
               const Divider(
                 thickness: 1.5,
               ),
               const SizedBox(
                 height: kDefaultPadding,
               ),
-              Expanded(
-                  child: PageView.builder(
-                      itemBuilder: (context, index) => const QuestionCard()))
+              SizedBox(
+                height: MediaQuery.of(context).size.height *
+                    0.6, // Adjust the height as needed
+
+                child: PageView.builder(
+                    //blocks swipe to next question
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: questionController.pageController,
+                    onPageChanged: questionController.updateTheQnNum,
+                    itemCount: questionController.questions.length,
+                    itemBuilder: (context, index) => QuestionCard(
+                          question: questionController.questions[index],
+                        )),
+              )
             ],
           ),
         )
